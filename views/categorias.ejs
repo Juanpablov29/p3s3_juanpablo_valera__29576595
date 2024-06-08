@@ -1,0 +1,21 @@
+<!-- views/categorias.ejs -->
+<%- include('layout') %>
+
+<div class="container">
+    <h1 class="my-4">Categorías</h1>
+    <div class="row">
+        <% categorias.forEach(categoria => { %>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-title"><%= categoria.name %></h4>
+                    <p class="card-text"><%= categoria.description %></p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Ver más</a>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
