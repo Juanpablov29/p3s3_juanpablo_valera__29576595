@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos - Tienda de Productos de Limpieza</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/categorias">Categorías</a></li>
+        <li><a href="/productos">Productos</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Productos</h1>
+    <form action="/productos/crear" method="POST">
+      <input type="text" name="codigo" placeholder="Código" required>
+      <input type="text" name="producto" placeholder="Producto" required>
+      <select name="categoria_id" required>
+        <option value="">Seleccionar Categoría</option>
+        <% categorias.forEach(categoria => { %>
+          <option value="<%= categoria.id %>"><%= categoria.categoria %></option>
+        <% }) %>
+      </select>
+      <input type="number" name="existencia_actual" placeholder="Existencia Actual" required>
+      <input type="number" name="precio" placeholder="Precio" step="0.01" required>
+      <button type="submit">Agregar</button>
+    </form>
+    <ul>
+      <% productos.forEach(producto => { %>
+        <li>
+          <form action="/productos/editar/<%= producto.id %>" method="POST" style="display: inline;">
+            <input type="text" name="codigo" value="<%= producto.codigo %>">
+            <input type="text" name="producto" value="<%= producto.producto %>">
+            <select name="categoria_id" required>
+              <% categorias.forEach(categoria => { %>
+                <option value="<%= categoria.id %>" <%= producto.categoria_id === categoria.id ? 'selected' : '' %>><%= categoria.categoria %></option>
+              <% }) %>
+            </select>
+            <input type="number" name="existencia_actual" value="<%= producto.existencia_actual %>">
+            <input type="number" name="precio" value="<%= producto.precio %>" step="0.01">
+            <button type="submit">Editar</button>
+          </form>
+          <form action="/productos/eliminar/<%= producto.id %>" method="POST" style="display: inline;">
+            <button type="submit">Eliminar</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  </main>
+</body>
+</html>
+
